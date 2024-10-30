@@ -5,21 +5,21 @@ This demo showcases how to build a user-facing analytics dashboard using
 
 ## Getting started
 
-1. Copy `.env.example` to `.env.local` in the root directory of your project and add your Trench server URL, public API key, and private API key:
+1. Copy `.env.example` to `.env.local` in the root directory of your project and add your Trench server URL, public API key, and private API key.
 
-2. Install the dependencies. We recommend using pnpm. If you want to use `npm`, just replace `pnpm` with `npm`.
+2. Install the dependencies:
 
 ```bash
 pnpm install
 ```
 
-2. Then, start the development server:
+3. Then, start the development server:
 
 ```bash
 pnpm run dev
 ```
 
-3. Visit [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
+4. Visit [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
 
 ## Learn more
 
