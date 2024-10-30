@@ -31,7 +31,7 @@ export const TopPagesTable = ({
         {formattedData.map((item, index) => (
           <TableRow key={index}>
             <TableCell>{item.page}</TableCell>
-            <TableCell>{item.page_count}</TableCell>
+            <TableCell>{item.page_count.toLocaleString("en-US")}</TableCell>
           </TableRow>
         ))}
       </TableBody>

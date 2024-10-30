@@ -46,7 +46,7 @@ export const ReferrersTable = ({
               />
               {item.referrer}
             </TableCell>
-            <TableCell>{item.referrer_count}</TableCell>
+            <TableCell>{item.referrer_count.toLocaleString()}</TableCell>
           </TableRow>
         ))}
       </TableBody>
