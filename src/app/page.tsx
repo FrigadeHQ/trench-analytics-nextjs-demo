@@ -2,6 +2,8 @@ import { getEventsFromTrench } from "@/data/trench"
 import { cx } from "@/lib/utils"
 import dynamic from "next/dynamic"
 import Header from "./_components/Header"
+import { ReferrersTable } from "./_components/ReferrersTable"
+import { TopPagesTable } from "./_components/TopPagesTable"
 // Loading graphs async so client timezone can be passed in
 const VisitorsChart = dynamic(
   () => import("./_components/VisitorsChart").then((mod) => mod.VisitorsChart),
@@ -14,7 +16,8 @@ const VisitorsChart = dynamic(
 )
 
 export default async function Page() {
-  const { visitorsData } = await getEventsFromTrench()
+  const { visitorsData, referrersData, topPagesData } =
+    await getEventsFromTrench()
 
   return (
     <div className="mx-auto max-w-screen-xl">
@@ -31,6 +34,20 @@ export default async function Page() {
           <section className="my-8">
             <div className="space-y-12">
               <VisitorsChart data={visitorsData} />
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+                  Top Pages
+                </h2>
+                <TopPagesTable data={topPagesData} />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+                  Referrers
+                </h2>
+                <ReferrersTable data={referrersData} />
+              </div>
             </div>
           </section>
         </div>

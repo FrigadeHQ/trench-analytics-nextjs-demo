@@ -22,16 +22,50 @@ export async function getEventsFromTrench() {
     `SELECT
         toStartOfHour(timestamp) AS time,  -- Group by hour (see https://clickhouse.com/docs/en/sql-reference/functions/date-time-functions)
         count(DISTINCT userId) AS value  -- Count distinct users
-      FROM events
-      WHERE event = '$pageview'
-      GROUP BY time
-      ORDER BY time`,
+      FROM 
+        events
+      WHERE 
+        event = '$pageview'
+      GROUP BY 
+        time
+      ORDER BY 
+        time`,
+    `SELECT 
+        JSONExtractString(properties, 'referrer') AS referrer,
+        count() AS referrer_count
+      FROM 
+        events
+      WHERE 
+        event = '$pageview' 
+        AND referrer != '' 
+        AND referrer NOT LIKE '%localhost%'
+      GROUP BY 
+        referrer
+      ORDER BY 
+        referrer_count DESC 
+      LIMIT 15`,
+    `SELECT 
+        JSONExtractString(properties, 'page') AS page,
+        count() AS page_count
+      FROM 
+        events
+      WHERE 
+        event = '$pageview'
+      GROUP BY 
+        page
+      ORDER BY 
+        page_count DESC 
+      LIMIT 15`,
   ])
 
-  return { visitorsData: transformDataToArray(queryResults.results[0]) }
+  return {
+    visitorsData: transformTimeValueDataToArray(queryResults.results[0]),
+    referrersData: transformReferrerDataToArray(queryResults.results[1]),
+    topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
+  }
 }
 
-export function transformDataToArray(
+export function transformTimeValueDataToArray(
   data: Record<string, any>,
 ): { time: string; value: number }[] {
   return Object.values(data).map((item) => ({
@@ -39,5 +73,23 @@ export function transformDataToArray(
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     }),
     value: item.value,
+  }))
+}
+
+export function transformReferrerDataToArray(
+  data: Record<string, any>,
+): { referrer: string; referrer_count: number }[] {
+  return Object.values(data).map((item) => ({
+    referrer: item.referrer,
+    referrer_count: item.referrer_count,
+  }))
+}
+
+export function transformTopPagesDataToArray(
+  data: Record<string, any>,
+): { page: string; page_count: number }[] {
+  return Object.values(data).map((item) => ({
+    page: item.page,
+    page_count: item.page_count,
   }))
 }
