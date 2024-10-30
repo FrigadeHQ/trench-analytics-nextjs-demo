@@ -1,7 +1,10 @@
 "use client"
 
 import { AreaChart } from "@/components/AreaChart"
-import { useDateFilter } from "@/lib/useDateFilter"
+import {
+  dateStringToLocalTimeZoneDate,
+  useDateFilter,
+} from "@/lib/useDateFilter"
 import { useMemo } from "react"
 
 const VALUE_KEY = "Unique Pageviews"
@@ -14,7 +17,7 @@ export const VisitorsChart = ({
 
   const chartData = useMemo(() => {
     return filteredData.map((item) => {
-      const utcTime = new Date(item.time)
+      const utcTime = new Date(dateStringToLocalTimeZoneDate(item.time))
       const formattedTime = utcTime.toLocaleString("en-US", {
         month: "short",
         day: "numeric",

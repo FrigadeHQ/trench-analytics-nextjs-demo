@@ -5,14 +5,6 @@ import { useMemo } from "react"
 import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
 
 export function useDateFilter<T extends { time: string }>(data: T[]) {
-  function dateStringToLocalTimeZoneDate(date: string): Date {
-    return new Date(
-      new Date(date + "Z").toLocaleString("en-US", {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      }),
-    )
-  }
-
   const [range] = useQueryState<RangeKey>("range", {
     defaultValue: DEFAULT_RANGE,
     parse: (value): RangeKey =>
@@ -28,9 +20,16 @@ export function useDateFilter<T extends { time: string }>(data: T[]) {
     filterDate.setDate(currentDate.getDate() - daysToSubtract)
 
     return data.filter(
-      (item) => dateStringToLocalTimeZoneDate(item.time) >= filterDate,
+      (item) =>
+        new Date(dateStringToLocalTimeZoneDate(item.time)) >= filterDate,
     )
   }, [data, range])
 
   return filteredData
+}
+
+export function dateStringToLocalTimeZoneDate(dateString: string): string {
+  return new Date(dateString + "Z").toLocaleString("en-US", {
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  })
 }
