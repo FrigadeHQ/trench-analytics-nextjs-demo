@@ -48,7 +48,15 @@ export default function Header() {
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-400">
           This demo showcases an analytics dashboard that queries data live from
-          a Trench instance in real time.
+          a Trench instance in real time. Source code available at
+          <a
+            href="https://github.com/FrigadeHQ/trench-analytics-nextjs-demo.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          .
         </p>
       </div>
       <Accordion type="single" collapsible className="block md:hidden">
