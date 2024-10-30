@@ -1,18 +1,8 @@
 import { getEventsFromTrench } from "@/data/trench"
-import dynamic from "next/dynamic"
 import Header from "./_components/Header"
 import { ReferrersTable } from "./_components/ReferrersTable"
 import { TopPagesTable } from "./_components/TopPagesTable"
-// Loading graphs async so client timezone can be passed in
-const VisitorsChart = dynamic(
-  () => import("./_components/VisitorsChart").then((mod) => mod.VisitorsChart),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-80 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-    ),
-  },
-)
+import { VisitorsChartWrapper } from "./_components/VisitorsChartWrapper"
 
 export default async function Page() {
   const { visitorsData, referrersData, topPagesData } =
@@ -27,7 +17,7 @@ export default async function Page() {
           <Header />
           <section className="my-8">
             <div className="space-y-12">
-              <VisitorsChart data={visitorsData} />
+              <VisitorsChartWrapper data={visitorsData} />
             </div>
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
