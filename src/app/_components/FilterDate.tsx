@@ -7,7 +7,12 @@ import {
   SelectValue,
 } from "@/components/Select"
 import { useQueryState } from "nuqs"
-import { DEFAULT_RANGE, RANGE_DAYS, RANGE_LABELS, RangeKey } from "./dateRanges"
+import {
+  DEFAULT_RANGE,
+  RANGE_DAYS,
+  RANGE_LABELS,
+  RangeKey,
+} from "../../lib/dateRanges"
 
 const FilterDate = () => {
   const [range, setRange] = useQueryState<RangeKey>("range", {

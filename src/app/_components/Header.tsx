@@ -11,8 +11,8 @@ import { cx } from "@/lib/utils"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useQueryState } from "nuqs"
+import { DEFAULT_RANGE } from "../../lib/dateRanges"
 import { FilterDate } from "./FilterDate"
-import { DEFAULT_RANGE } from "./dateRanges"
 
 export default function Header() {
   const scrolled = useScroll(10)

@@ -8,34 +8,17 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@/components/Table"
-import { useQueryState } from "nuqs"
+import { useDateFilter } from "@/lib/useDateFilter"
 import { useMemo } from "react"
-import { dateStringToLocalTimeZoneDate } from "../../lib/utils"
-import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
 
 export const ReferrersTable = ({
   data,
 }: {
   data: { time: string; referrer: string; referrer_count: number }[]
 }) => {
-  const [range] = useQueryState<RangeKey>("range", {
-    defaultValue: DEFAULT_RANGE,
-    parse: (value): RangeKey =>
-      Object.keys(RANGE_DAYS).includes(value)
-        ? (value as RangeKey)
-        : DEFAULT_RANGE,
-  })
+  const filteredData = useDateFilter(data)
 
   const formattedData = useMemo(() => {
-    const currentDate = new Date()
-    const filterDate = new Date(currentDate)
-    const daysToSubtract = RANGE_DAYS[range] || RANGE_DAYS[DEFAULT_RANGE]
-    filterDate.setDate(currentDate.getDate() - daysToSubtract)
-
-    const filteredData = data.filter(
-      (item) => dateStringToLocalTimeZoneDate(item.time) >= filterDate,
-    )
-
     const referrerCountMap: { [key: string]: number } = {}
 
     filteredData.forEach((item) => {
@@ -53,7 +36,7 @@ export const ReferrersTable = ({
         referrer_count,
       }),
     )
-  }, [data, range])
+  }, [filteredData])
   const getReferrerIcon = (referrer: string) => {
     try {
       const url = new URL(referrer)

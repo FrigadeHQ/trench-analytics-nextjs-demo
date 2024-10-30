@@ -1,10 +1,8 @@
 "use client"
 
 import { AreaChart } from "@/components/AreaChart"
-import { dateStringToLocalTimeZoneDate } from "@/lib/utils"
-import { useQueryState } from "nuqs"
+import { useDateFilter } from "@/lib/useDateFilter"
 import { useMemo } from "react"
-import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
 
 const VALUE_KEY = "Unique Pageviews"
 export const VisitorsChart = ({
@@ -12,40 +10,23 @@ export const VisitorsChart = ({
 }: {
   data: { time: string; value: number }[]
 }) => {
-  const [range] = useQueryState<RangeKey>("range", {
-    defaultValue: DEFAULT_RANGE,
-    parse: (value): RangeKey =>
-      Object.keys(RANGE_DAYS).includes(value)
-        ? (value as RangeKey)
-        : DEFAULT_RANGE,
-  })
+  const filteredData = useDateFilter(data)
 
   const chartData = useMemo(() => {
-    const currentDate = new Date()
-    const filterDate = new Date(currentDate)
-    const daysToSubtract = RANGE_DAYS[range] || RANGE_DAYS[DEFAULT_RANGE]
-    filterDate.setDate(currentDate.getDate() - daysToSubtract)
-
-    return data
-      .map((item) => ({
-        ...item,
-        time: dateStringToLocalTimeZoneDate(item.time),
-      }))
-      .filter((item) => new Date(item.time) >= filterDate)
-      .map((item) => {
-        const utcTime = new Date(item.time)
-        const formattedTime = utcTime.toLocaleString("en-US", {
-          month: "short",
-          day: "numeric",
-          hour: "numeric",
-          hour12: true,
-        })
-        return {
-          [VALUE_KEY]: item.value,
-          time: formattedTime,
-        }
+    return filteredData.map((item) => {
+      const utcTime = new Date(item.time)
+      const formattedTime = utcTime.toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        hour12: true,
       })
-  }, [data, range])
+      return {
+        [VALUE_KEY]: item.value,
+        time: formattedTime,
+      }
+    })
+  }, [filteredData])
 
   return (
     <div className="w-full">
