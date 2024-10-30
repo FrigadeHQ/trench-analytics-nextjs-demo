@@ -71,9 +71,7 @@ export function transformTimeValueDataToArray(
   data: Record<string, any>,
 ): { time: string; value: number }[] {
   return Object.values(data).map((item) => ({
-    time: new Date(item.time + "Z").toLocaleString("en-US", {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    }),
+    time: item.time,
     value: item.value,
   }))
 }
@@ -82,9 +80,7 @@ export function transformReferrerDataToArray(
   data: Record<string, any>,
 ): { time: string; referrer: string; referrer_count: number }[] {
   return Object.values(data).map((item) => ({
-    time: new Date(item.time + "Z").toLocaleString("en-US", {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    }),
+    time: item.time,
     referrer: item.referrer,
     referrer_count: item.referrer_count,
   }))
@@ -94,9 +90,7 @@ export function transformTopPagesDataToArray(
   data: Record<string, any>,
 ): { time: string; page: string; page_count: number }[] {
   return Object.values(data).map((item) => ({
-    time: new Date(item.time + "Z").toLocaleString("en-US", {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    }),
+    time: item.time,
     page: item.page,
     page_count: item.page_count,
   }))

@@ -93,3 +93,11 @@ export const formatters: { [key: string]: any } = {
     return `${formattedNumber}M`
   },
 }
+
+export function dateStringToLocalTimeZoneDate(date: string): Date {
+  return new Date(
+    new Date(date + "Z").toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }),
+  )
+}

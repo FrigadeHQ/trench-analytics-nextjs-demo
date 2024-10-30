@@ -10,6 +10,7 @@ import {
 } from "@/components/Table"
 import { useQueryState } from "nuqs"
 import { useMemo } from "react"
+import { dateStringToLocalTimeZoneDate } from "../../lib/utils"
 import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
 
 export const ReferrersTable = ({
@@ -32,7 +33,7 @@ export const ReferrersTable = ({
     filterDate.setDate(currentDate.getDate() - daysToSubtract)
 
     const filteredData = data.filter(
-      (item) => new Date(item.time) >= filterDate,
+      (item) => dateStringToLocalTimeZoneDate(item.time) >= filterDate,
     )
 
     const referrerCountMap: { [key: string]: number } = {}

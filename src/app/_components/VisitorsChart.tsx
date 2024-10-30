@@ -1,6 +1,7 @@
 "use client"
 
 import { AreaChart } from "@/components/AreaChart"
+import { dateStringToLocalTimeZoneDate } from "@/lib/utils"
 import { useQueryState } from "nuqs"
 import { useMemo } from "react"
 import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
@@ -26,6 +27,10 @@ export const VisitorsChart = ({
     filterDate.setDate(currentDate.getDate() - daysToSubtract)
 
     return data
+      .map((item) => ({
+        ...item,
+        time: dateStringToLocalTimeZoneDate(item.time),
+      }))
       .filter((item) => new Date(item.time) >= filterDate)
       .map((item) => {
         const utcTime = new Date(item.time)
