@@ -1,6 +1,6 @@
 # Trench.dev Analytics Dashboard Demo
 
-This demo showcases how to build a user-facing analytics dashboard using
+This React + Next.js demo showcases how to build a user-facing analytics dashboard using
 [Trench](https://trench.dev). You can see a live demo of it on [https://demo.trench.dev](https://demo.trench.dev).
 
 ## Getting started
@@ -20,6 +20,16 @@ pnpm run dev
 ```
 
 4. Visit [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
+
+## Working with the code
+
+The most important files are:
+
+- `src/data/trench.ts` - Wrapper around the `trench-js` client.
+- `src/app/page.tsx` - The main page of the dashboard.
+- `src/app/_components/VisitorsChart.tsx` - The chart on the main page.
+
+**Note:** This example uses React Server Components to allow fetching data from the Trench API on the server. If copying code to a non-RSC React project, you should make sure never to expose your private API key in the client bundle.
 
 ## Learn more
 
