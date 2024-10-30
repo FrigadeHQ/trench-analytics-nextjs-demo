@@ -1,7 +1,17 @@
 import { getEventsFromTrench } from "@/data/trench"
 import { cx } from "@/lib/utils"
+import dynamic from "next/dynamic"
 import Header from "./_components/Header"
-import { VisitorsChart } from "./_components/VisitorsChart"
+// Loading graphs async so client timezone can be passed in
+const VisitorsChart = dynamic(
+  () => import("./_components/VisitorsChart").then((mod) => mod.VisitorsChart),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-80 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
+    ),
+  },
+)
 
 export default async function Page() {
   const { visitorsData } = await getEventsFromTrench()
