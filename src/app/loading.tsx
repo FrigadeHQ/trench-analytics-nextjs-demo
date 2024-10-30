@@ -1,6 +1,6 @@
 const LoadingPage = () => {
   return (
-    <div className="p-6 text-white">
+    <div className="mx-auto max-w-screen-xl p-6 pt-16 text-white">
       <div className="mb-6 flex items-center justify-between">
         <div className="h-4 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
         <div className="flex space-x-2">
