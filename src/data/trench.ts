@@ -31,6 +31,7 @@ export async function getEventsFromTrench() {
       ORDER BY 
         time`,
     `SELECT 
+        toStartOfHour(timestamp) AS time,  -- Group by hour
         JSONExtractString(properties, 'referrer') AS referrer,
         count() AS referrer_count
       FROM 
@@ -40,11 +41,12 @@ export async function getEventsFromTrench() {
         AND referrer != '' 
         AND referrer NOT LIKE '%localhost%'
       GROUP BY 
-        referrer
+        time, referrer
       ORDER BY 
         referrer_count DESC 
-      LIMIT 15`,
+      LIMIT 13000`,
     `SELECT 
+        toStartOfHour(timestamp) AS time,  -- Group by hour
         JSONExtractString(properties, 'page') AS page,
         count() AS page_count
       FROM 
@@ -52,10 +54,10 @@ export async function getEventsFromTrench() {
       WHERE 
         event = '$pageview'
       GROUP BY 
-        page
+        time, page
       ORDER BY 
         page_count DESC 
-      LIMIT 15`,
+      LIMIT 13000`,
   ])
 
   return {
@@ -78,8 +80,11 @@ export function transformTimeValueDataToArray(
 
 export function transformReferrerDataToArray(
   data: Record<string, any>,
-): { referrer: string; referrer_count: number }[] {
+): { time: string; referrer: string; referrer_count: number }[] {
   return Object.values(data).map((item) => ({
+    time: new Date(item.time + "Z").toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }),
     referrer: item.referrer,
     referrer_count: item.referrer_count,
   }))
@@ -87,8 +92,11 @@ export function transformReferrerDataToArray(
 
 export function transformTopPagesDataToArray(
   data: Record<string, any>,
-): { page: string; page_count: number }[] {
+): { time: string; page: string; page_count: number }[] {
   return Object.values(data).map((item) => ({
+    time: new Date(item.time + "Z").toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }),
     page: item.page,
     page_count: item.page_count,
   }))

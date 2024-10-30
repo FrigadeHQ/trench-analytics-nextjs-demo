@@ -8,21 +8,59 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@/components/Table"
+import { useQueryState } from "nuqs"
+import { useMemo } from "react"
+import { DEFAULT_RANGE, RANGE_DAYS, RangeKey } from "./dateRanges"
 
 export const ReferrersTable = ({
   data,
 }: {
-  data: { referrer: string; referrer_count: number }[]
+  data: { time: string; referrer: string; referrer_count: number }[]
 }) => {
-  const formattedData = data.map((item) => ({
-    referrer: item.referrer,
-    referrer_count: item.referrer_count,
-  }))
+  const [range] = useQueryState<RangeKey>("range", {
+    defaultValue: DEFAULT_RANGE,
+    parse: (value): RangeKey =>
+      Object.keys(RANGE_DAYS).includes(value)
+        ? (value as RangeKey)
+        : DEFAULT_RANGE,
+  })
 
+  const formattedData = useMemo(() => {
+    const currentDate = new Date()
+    const filterDate = new Date(currentDate)
+    const daysToSubtract = RANGE_DAYS[range] || RANGE_DAYS[DEFAULT_RANGE]
+    filterDate.setDate(currentDate.getDate() - daysToSubtract)
+
+    const filteredData = data.filter(
+      (item) => new Date(item.time) >= filterDate,
+    )
+
+    const referrerCountMap: { [key: string]: number } = {}
+
+    filteredData.forEach((item) => {
+      const referrer = item.referrer
+      if (referrerCountMap[referrer]) {
+        referrerCountMap[referrer] += Number(item.referrer_count)
+      } else {
+        referrerCountMap[referrer] = Number(item.referrer_count)
+      }
+    })
+
+    return Object.entries(referrerCountMap).map(
+      ([referrer, referrer_count]) => ({
+        referrer,
+        referrer_count,
+      }),
+    )
+  }, [data, range])
   const getReferrerIcon = (referrer: string) => {
-    const url = new URL(referrer)
-    const domain = url.hostname
-    return `https://icons.duckduckgo.com/ip3/${domain}.ico`
+    try {
+      const url = new URL(referrer)
+      const domain = url.hostname
+      return `https://icons.duckduckgo.com/ip3/${domain}.ico`
+    } catch (error) {
+      return "https://icons.duckduckgo.com/ip3/unknown.ico"
+    }
   }
 
   return (
@@ -34,7 +72,7 @@ export const ReferrersTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {formattedData.map((item, index) => (
+        {formattedData.slice(0, 15).map((item, index) => (
           <TableRow key={index}>
             <TableCell>
               <img
