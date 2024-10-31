@@ -45,7 +45,7 @@
     "recharts": "^2.13.0",
     "tailwind-merge": "^2.5.3",
     "tailwind-variants": "^0.2.1",
-    "trench-js": "^0.0.8",
+    "trench-js": "^0.0.9",
     "tsx": "^4.19.1",
     "zod": "^3.23.8"
   },

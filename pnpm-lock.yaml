@@ -111,8 +111,8 @@ dependencies:
     specifier: ^0.2.1
     version: 0.2.1(tailwindcss@3.4.13)
   trench-js:
-    specifier: ^0.0.8
-    version: 0.0.8(@types/dlv@1.1.4)
+    specifier: ^0.0.9
+    version: 0.0.9(@types/dlv@1.1.4)
   tsx:
     specifier: ^4.19.1
     version: 4.19.1
@@ -2078,8 +2078,8 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /analytics-plugin-trench@0.0.4:
-    resolution: {integrity: sha512-ZH8QEhw/LGMWC6fYbC7HqKVDXjEICSZNLcgL1p0FvDJrkM3cQ0c9oDwtxZ3y46ozVwSSYkIYTebJKOE1jC215Q==}
+  /analytics-plugin-trench@0.0.5:
+    resolution: {integrity: sha512-yeyrYvBTUaR4fKBh4+P4ZNS/u98dgr1Fn3HLK1IIM5pm+dPiwJ4x4Sv3dItI90lBj3hQUr0U+RnlNQoYlMeTIQ==}
     dependencies:
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -4712,11 +4712,11 @@ packages:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: false
 
-  /trench-js@0.0.8(@types/dlv@1.1.4):
-    resolution: {integrity: sha512-xZgMpR6eoheuDEcwXap+LUbxP77XzNzIvyhXvDPkWJPyazEyxxqueZ7hpnlk6KCXghA3rq7lJmbBjo2o5GDFyA==}
+  /trench-js@0.0.9(@types/dlv@1.1.4):
+    resolution: {integrity: sha512-CisRaym38+H6osd940xm7Bh46dRrRo6JkqWJzQeuZoeXpLdv0bhyObhnbrrLRhpGNaIyhAugnWwEnbgh6mRv+w==}
     dependencies:
       analytics: 0.8.14(@types/dlv@1.1.4)
-      analytics-plugin-trench: 0.0.4
+      analytics-plugin-trench: 0.0.5
     transitivePeerDependencies:
       - '@types/dlv'
       - encoding
