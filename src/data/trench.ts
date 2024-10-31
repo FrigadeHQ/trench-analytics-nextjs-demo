@@ -39,7 +39,7 @@ export async function getEventsFromTrench() {
       WHERE 
         event = '$pageview' 
         AND referrer != '' 
-        AND referrer NOT LIKE '%localhost%'
+        AND referrer NOT LIKE '%localhost%' AND referrer NOT LIKE '%trench.dev%'
       GROUP BY 
         time, referrer
       ORDER BY 
