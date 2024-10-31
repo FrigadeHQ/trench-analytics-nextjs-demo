@@ -47,7 +47,7 @@ export async function getEventsFromTrench() {
       LIMIT 13000`,
     `SELECT 
         toStartOfHour(timestamp) AS time,  -- Group by hour
-        JSONExtractString(properties, 'page') AS page,
+        JSONExtractString(properties, 'path') AS page,
         count() AS page_count
       FROM 
         events
