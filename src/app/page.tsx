@@ -3,6 +3,7 @@ import Header from "./_components/Header"
 import { ReferrersTable } from "./_components/ReferrersTable"
 import { TopPagesTable } from "./_components/TopPagesTable"
 import { VisitorsChart } from "./_components/VisitorsChart"
+export const fetchCache = "force-no-store"
 
 export default async function Page() {
   const { visitorsData, referrersData, topPagesData } =
