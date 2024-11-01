@@ -46,17 +46,28 @@ export default function Header() {
         >
           Trench Analytics Dashboard Demo
         </h1>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          This demo showcases an analytics dashboard that queries data live from
-          a Trench instance in real time.{" "}
+        <p className="max-w-prose text-sm text-gray-600 dark:text-gray-400">
+          This demo showcases a Google Analytics-style dashboard that queries
+          data from a Trench server that tracks page views on{" "}
           <a
-            href="https://github.com/FrigadeHQ/trench-analytics-nextjs-demo.git"
+            href="https://trench.dev"
             target="_blank"
             className="text-blue-500 hover:underline"
             rel="noopener noreferrer"
           >
-            View Source Code
+            https://trench.dev
           </a>
+          .
+          <p className="mt-2">
+            <a
+              href="https://github.com/FrigadeHQ/trench-analytics-nextjs-demo.git"
+              target="_blank"
+              className="text-blue-500 hover:underline"
+              rel="noopener noreferrer"
+            >
+              View Source Code
+            </a>
+          </p>
         </p>
       </div>
       <Accordion type="single" collapsible className="block md:hidden">
