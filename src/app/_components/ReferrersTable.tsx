@@ -30,13 +30,14 @@ export const ReferrersTable = ({
       }
     })
 
-    return Object.entries(referrerCountMap).map(
-      ([referrer, referrer_count]) => ({
+    return Object.entries(referrerCountMap)
+      .map(([referrer, referrer_count]) => ({
         referrer,
         referrer_count,
-      }),
-    )
+      }))
+      .sort((a, b) => b.referrer_count - a.referrer_count)
   }, [filteredData])
+
   const getReferrerIcon = (referrer: string) => {
     try {
       const url = new URL(referrer)
