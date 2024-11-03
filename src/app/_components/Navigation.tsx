@@ -1,10 +1,7 @@
 "use client"
 import { Button } from "@/components/Button"
-import useScroll from "@/lib/useScroll"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useQueryState } from "nuqs"
-import { DEFAULT_RANGE } from "../../lib/dateRanges"
 import { Logo } from "./Logo"
 
 const navigation = [
@@ -21,19 +18,6 @@ function classNames(...classes: string[]): string {
 }
 
 export default function Nav() {
-  const scrolled = useScroll(10)
-
-  const [, setRange] = useQueryState("range")
-  const [, setExpenseStatus] = useQueryState("expense_status")
-  const [, setAmountRange] = useQueryState("amount_range")
-  const [, setSelectedCountries] = useQueryState("countries")
-
-  const handleResetFilters = () => {
-    setRange(DEFAULT_RANGE)
-    setExpenseStatus(null)
-    setAmountRange(null)
-    setSelectedCountries(null)
-  }
   const { theme, setTheme } = useTheme()
 
   return (
