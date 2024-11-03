@@ -32,18 +32,7 @@ export const VisitorsChart = ({
   }, [filteredData])
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2">
-          <h2
-            id="visitors-chart-title"
-            className="text-sm text-gray-600 dark:text-gray-400"
-          >
-            Unique Pageviews
-          </h2>
-        </div>
-      </div>
-
+    <div className="flex basis-full p-8">
       <AreaChart
         className="h-80"
         data={chartData}
@@ -52,8 +41,6 @@ export const VisitorsChart = ({
         valueFormatter={(number: number) =>
           Intl.NumberFormat("us").format(number).toString()
         }
-        xAxisLabel="Time"
-        yAxisLabel="Visitors"
         fill="solid"
         maxValue={Math.max(...chartData.map((item) => item[VALUE_KEY]))}
       />

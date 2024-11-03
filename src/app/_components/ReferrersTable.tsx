@@ -49,30 +49,38 @@ export const ReferrersTable = ({
   }
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Referrer</TableHeaderCell>
-          <TableHeaderCell>Count</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {formattedData.slice(0, 15).map((item, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <img
-                src={getReferrerIcon(item.referrer)}
-                alt={item.referrer}
-                className="mr-2 inline-block"
-                width="16"
-                height="16"
-              />
-              {item.referrer}
-            </TableCell>
-            <TableCell>{item.referrer_count.toLocaleString()}</TableCell>
+    <div className="flex basis-full flex-col p-8 md:basis-1/2">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+        Top Referrers
+      </h2>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Referrer</TableHeaderCell>
+            <TableHeaderCell>Count</TableHeaderCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHead>
+        <TableBody>
+          {formattedData.slice(0, 10).map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>
+                <img
+                  src={getReferrerIcon(item.referrer)}
+                  alt={item.referrer}
+                  className="mr-2 inline-block"
+                  width="16"
+                  height="16"
+                />
+                {item.referrer.replace(
+                  /^(?:https?:\/\/)?(?:www\.)?([^\/]+).*$/,
+                  "$1",
+                )}
+              </TableCell>
+              <TableCell>{item.referrer_count.toLocaleString()}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

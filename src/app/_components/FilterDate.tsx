@@ -1,4 +1,3 @@
-import { Label } from "@/components/Label"
 import {
   Select,
   SelectContent,
@@ -29,9 +28,6 @@ const FilterDate = () => {
 
   return (
     <div className="space-y-2">
-      <Label htmlFor="date-range" className="font-medium">
-        Date Range
-      </Label>
       <Select value={range} onValueChange={handleValueChange}>
         <SelectTrigger id="date-range" className="w-full md:w-36">
           <SelectValue placeholder="Select" />
