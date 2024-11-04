@@ -32,7 +32,7 @@ export async function getEventsFromTrench() {
         time`,
     `SELECT 
         toStartOfHour(timestamp) AS time,  -- Group by hour
-        JSONExtractString(properties, 'referrer') AS referrer,
+        domainWithoutWWW(JSONExtractString(properties, 'referrer')) AS referrer,
         count() AS referrer_count
       FROM 
         events

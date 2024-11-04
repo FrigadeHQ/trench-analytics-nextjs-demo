@@ -19,7 +19,7 @@ export default async function Page() {
         <PageHeader />
 
         <section className="my-8">
-          <div className="flex flex-row flex-wrap divide-y divide-gray-200 border border-gray-200 dark:divide-gray-900 dark:border-gray-900 [&>*:not(:first-child)]:border-l [&>*:nth-child(even)]:border-l-0 [&>*]:border-l-gray-200 dark:[&>*]:border-l-gray-900">
+          <div className="flex flex-row flex-wrap divide-y divide-gray-200 border border-gray-200 dark:divide-gray-900 dark:border-gray-900 sm:[&>*:not(:first-child)]:border-l sm:[&>*:nth-child(even)]:border-l-0 [&>*]:border-l-gray-200 dark:[&>*]:border-l-gray-900">
             <VisitorsChart data={visitorsData} />
             <TopPagesTable data={topPagesData} />
             <ReferrersTable data={referrersData} />

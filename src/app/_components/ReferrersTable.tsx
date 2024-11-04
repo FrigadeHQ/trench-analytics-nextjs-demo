@@ -65,16 +65,13 @@ export const ReferrersTable = ({
             <TableRow key={index}>
               <TableCell>
                 <img
-                  src={getReferrerIcon(item.referrer)}
+                  src={getReferrerIcon("https://" + item.referrer)}
                   alt={item.referrer}
                   className="mr-2 inline-block"
                   width="16"
                   height="16"
                 />
-                {item.referrer.replace(
-                  /^(?:https?:\/\/)?(?:www\.)?([^\/]+).*$/,
-                  "$1",
-                )}
+                {item.referrer}
               </TableCell>
               <TableCell>{item.referrer_count.toLocaleString()}</TableCell>
             </TableRow>
