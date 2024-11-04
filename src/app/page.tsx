@@ -1,3 +1,4 @@
+import { Card } from "@/components/Card"
 import { getEventsFromTrench } from "@/data/trench"
 import Nav from "./_components/Navigation"
 import PageHeader from "./_components/PageHeader"
@@ -19,11 +20,11 @@ export default async function Page() {
         <PageHeader />
 
         <section className="my-8">
-          <div className="flex flex-row flex-wrap divide-y divide-gray-200 border border-gray-200 dark:divide-gray-900 dark:border-gray-900 sm:[&>*:not(:first-child)]:border-l sm:[&>*:nth-child(even)]:border-l-0 [&>*]:border-l-gray-200 dark:[&>*]:border-l-gray-900">
+          <Card className="flex flex-row flex-wrap divide-y divide-gray-200 rounded-lg border border-gray-200 p-0 dark:divide-gray-900 dark:border-gray-900 sm:[&>*:not(:first-child)]:border-l sm:[&>*:nth-child(even)]:border-l-0 [&>*]:border-l-gray-200 dark:[&>*]:border-l-gray-900">
             <VisitorsChart data={visitorsData} />
             <TopPagesTable data={topPagesData} />
             <ReferrersTable data={referrersData} />
-          </div>
+          </Card>
         </section>
       </main>
     </div>

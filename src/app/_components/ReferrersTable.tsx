@@ -1,15 +1,11 @@
 "use client"
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "@/components/Table"
+import { BarList } from "@/components/BarList"
 import { useDateFilter } from "@/lib/useDateFilter"
 import { useMemo } from "react"
+
+const valueFormatter = (number: number) =>
+  `${Intl.NumberFormat("us").format(number).toString()}`
 
 export const ReferrersTable = ({
   data,
@@ -31,11 +27,13 @@ export const ReferrersTable = ({
     })
 
     return Object.entries(referrerCountMap)
-      .map(([referrer, referrer_count]) => ({
-        referrer,
-        referrer_count,
+      .map(([name, value]) => ({
+        name,
+        value,
+        href: "https://" + name,
+        icon: `https://icons.duckduckgo.com/ip3/${name}.ico`,
       }))
-      .sort((a, b) => b.referrer_count - a.referrer_count)
+      .sort((a, b) => b.value - a.value)
   }, [filteredData])
 
   const getReferrerIcon = (referrer: string) => {
@@ -49,35 +47,20 @@ export const ReferrersTable = ({
   }
 
   return (
-    <div className="flex basis-full flex-col p-8 md:basis-1/2">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-        Top Referrers
-      </h2>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Referrer</TableHeaderCell>
-            <TableHeaderCell>Count</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {formattedData.slice(0, 10).map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <img
-                  src={getReferrerIcon("https://" + item.referrer)}
-                  alt={item.referrer}
-                  className="mr-2 inline-block"
-                  width="16"
-                  height="16"
-                />
-                {item.referrer}
-              </TableCell>
-              <TableCell>{item.referrer_count.toLocaleString()}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="flex basis-full flex-col p-8 md:basis-1/2" key={"a"}>
+      <div className="flex items-center justify-between">
+        <p className="text-tremor-default text-tremor-content-strong dark:text-dark-tremor-content-strong font-medium">
+          Referrers
+        </p>
+        <span className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+          Visitors
+        </span>
+      </div>
+      <BarList
+        data={formattedData.slice(0, 10)}
+        valueFormatter={valueFormatter}
+        className="mt-4"
+      />
     </div>
   )
 }

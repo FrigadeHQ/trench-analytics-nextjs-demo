@@ -9,7 +9,6 @@ type Bar<T> = T & {
   href?: string
   value: number
   name: string
-  icon?: string
 }
 
 interface BarListProps<T = unknown>
@@ -55,29 +54,11 @@ function BarListInner<T>(
   return (
     <div
       ref={forwardedRef}
-      className={cx("flex justify-between space-x-2", className)}
+      className={cx("flex justify-between space-x-6", className)}
       aria-sort={sortOrder}
       tremor-id="tremor-raw"
       {...props}
     >
-      {sortedData.some((item) => item.icon) && (
-        <div>
-          {sortedData.map((item, index) => (
-            <div
-              key={item.key ?? item.name}
-              className={cx(
-                "flex items-center justify-end",
-                rowHeight,
-                index === sortedData.length - 1 ? "mb-0" : "mb-1.5",
-              )}
-            >
-              {item.icon && (
-                <img src={item.icon} className="mr-2 h-4 w-4" alt="" />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
       <div className="relative w-full space-y-1.5">
         {sortedData.map((item, index) => (
           <Component
@@ -92,10 +73,10 @@ function BarListInner<T>(
               focusRing,
               onValueChange
                 ? [
-                    "!-m-0 cursor-pointer",
-                    // hover
-                    "hover:bg-gray-50 hover:dark:bg-gray-900",
-                  ]
+                  "!-m-0 cursor-pointer",
+                  // hover
+                  "hover:bg-gray-50 hover:dark:bg-gray-900",
+                ]
                 : "",
             )}
           >
@@ -154,7 +135,7 @@ function BarListInner<T>(
           </Component>
         ))}
       </div>
-      <div className="pl-4">
+      <div>
         {sortedData.map((item, index) => (
           <div
             key={item.key ?? item.name}
@@ -183,8 +164,8 @@ function BarListInner<T>(
 
 BarListInner.displayName = "BarList"
 
-const BarList = React.forwardRef(BarListInner) as <T>(
+const BarListWithIcons = React.forwardRef(BarListInner) as <T>(
   p: BarListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
 ) => ReturnType<typeof BarListInner>
 
-export { BarList, type BarListProps }
+export { BarListWithIcons, type BarListProps }

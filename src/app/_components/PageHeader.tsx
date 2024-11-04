@@ -11,6 +11,7 @@ import { cx } from "@/lib/utils"
 import { useQueryState } from "nuqs"
 import { DEFAULT_RANGE } from "../../lib/dateRanges"
 import { FilterDate } from "./FilterDate"
+import StatCards from "./StatCards"
 
 export default function PageHeader() {
   const scrolled = useScroll(10)
@@ -31,12 +32,12 @@ export default function PageHeader() {
     <section
       aria-labelledby="reports-title"
       className={cx(
-        "sticky top-0 z-50 -my-6 flex flex-col gap-6 bg-white py-6 md:flex-row md:flex-wrap md:items-center md:justify-end lg:top-0 dark:bg-gray-925",
+        "sticky top-0 z-50 -my-6 flex flex-col justify-between gap-6 bg-white py-6 md:flex-row md:flex-wrap md:items-center lg:top-0 dark:bg-gray-925",
         scrolled &&
           "border-b border-gray-200 transition-all dark:border-gray-900",
       )}
     >
-      <Accordion type="single" collapsible className="block md:hidden">
+      <Accordion type="single" collapsible className="block w-full lg:hidden">
         <AccordionItem className="rounded-md border" value="1">
           <AccordionTrigger className="px-4 py-2.5">Filters</AccordionTrigger>
           <AccordionContent className="p-4">
@@ -53,15 +54,18 @@ export default function PageHeader() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <div className="hidden items-end gap-3 md:flex md:flex-wrap">
+      <div className="flex-1">
+        <StatCards />
+      </div>
+      <div className="hidden items-end gap-3 lg:flex lg:flex-wrap lg:self-start">
         <FilterDate />
-        <Button
+        {/* <Button
           variant="light"
           className="h-fit dark:border-gray-800"
           onClick={handleResetFilters}
         >
           Reset
-        </Button>
+        </Button> */}
       </div>
     </section>
   )

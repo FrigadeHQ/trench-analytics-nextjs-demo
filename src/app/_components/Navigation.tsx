@@ -33,17 +33,14 @@ export default function Nav() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <Button
                     key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                    className={classNames(
-                      item.current ? "" : "",
-                      "px-3 py-2 text-sm font-medium text-gray-600 hover:text-black dark:text-gray-300 hover:dark:text-white",
-                    )}
+                    variant="ghost"
+                    className="h-fit"
+                    onClick={() => window.open(item.href, "_blank")}
                   >
                     {item.name}
-                  </a>
+                  </Button>
                 ))}
                 <Button
                   variant="ghost"
