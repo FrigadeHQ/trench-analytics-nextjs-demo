@@ -58,12 +58,44 @@ export async function getEventsFromTrench() {
       ORDER BY 
         page_count DESC 
       LIMIT 13000`,
+    `SELECT
+        toStartOfHour(timestamp) AS time,  -- Group by hour
+        count() AS value  -- Count all pageviews
+      FROM 
+        events
+      WHERE 
+        event = '$pageview'
+      GROUP BY 
+        time
+      ORDER BY 
+        time`,
+    `WITH 
+        sessions AS (
+          SELECT
+            userId,
+            timestamp,
+            if(
+              dateDiff('minute', lagInFrame(timestamp) OVER (PARTITION BY userId ORDER BY timestamp), timestamp) > 2
+              OR isNull(lagInFrame(timestamp) OVER (PARTITION BY userId ORDER BY timestamp)),
+              1, 0
+            ) AS is_new_session
+          FROM events
+          WHERE event = '$pageview'
+        )
+      SELECT
+        toStartOfHour(timestamp) AS time,
+        sum(is_new_session) AS value
+      FROM sessions
+      GROUP BY time
+      ORDER BY time`,
   ])
 
   return {
     visitorsData: transformTimeValueDataToArray(queryResults.results[0]),
     referrersData: transformReferrerDataToArray(queryResults.results[1]),
     topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
+    pageviewsData: transformTimeValueDataToArray(queryResults.results[3]),
+    sessionsData: transformTimeValueDataToArray(queryResults.results[4]),
   }
 }
 

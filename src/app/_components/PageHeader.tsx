@@ -13,7 +13,15 @@ import { DEFAULT_RANGE } from "../../lib/dateRanges"
 import { FilterDate } from "./FilterDate"
 import StatCards from "./StatCards"
 
-export default function PageHeader() {
+export default function PageHeader({
+  visitorsData,
+  pageviewsData,
+  sessionsData,
+}: {
+  visitorsData: { time: string; value: number }[]
+  pageviewsData: { time: string; value: number }[]
+  sessionsData: { time: string; value: number }[]
+}) {
   const scrolled = useScroll(10)
 
   const [, setRange] = useQueryState("range")
@@ -55,7 +63,7 @@ export default function PageHeader() {
         </AccordionItem>
       </Accordion>
       <div className="flex-1">
-        <StatCards />
+        <StatCards data={{ visitorsData, pageviewsData, sessionsData }} />
       </div>
       <div className="hidden items-end gap-3 lg:flex lg:flex-wrap lg:self-start">
         <FilterDate />
