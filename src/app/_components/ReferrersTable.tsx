@@ -36,16 +36,6 @@ export const ReferrersTable = ({
       .sort((a, b) => b.value - a.value)
   }, [filteredData])
 
-  const getReferrerIcon = (referrer: string) => {
-    try {
-      const url = new URL(referrer)
-      const domain = url.hostname
-      return `https://icons.duckduckgo.com/ip3/${domain}.ico`
-    } catch (error) {
-      return "https://icons.duckduckgo.com/ip3/unknown.ico"
-    }
-  }
-
   return (
     <div className="flex basis-full flex-col p-8 md:basis-1/2" key={"a"}>
       <div className="flex items-center justify-between">

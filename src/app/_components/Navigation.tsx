@@ -13,10 +13,6 @@ const navigation = [
   },
 ]
 
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(" ")
-}
-
 export default function Nav() {
   const { theme, setTheme } = useTheme()
 
