@@ -15,13 +15,14 @@ export default async function Page() {
     topPagesData,
     pageviewsData,
     sessionsData,
+    onlineUsersData,
   } = await getEventsFromTrench()
 
   return (
     <div className="mx-auto max-w-screen-xl">
       <Nav />
       <main className="ease mx-auto max-w-7xl transform-gpu px-2 transition-all duration-100 will-change-transform sm:px-6 lg:p-3 lg:px-8 lg:dark:bg-gray-950">
-        <PageTitle />
+        <PageTitle onlineUsers={onlineUsersData} />
         <PageHeader
           visitorsData={visitorsData}
           pageviewsData={pageviewsData}

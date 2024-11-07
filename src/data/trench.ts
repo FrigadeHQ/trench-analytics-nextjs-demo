@@ -88,6 +88,13 @@ export async function getEventsFromTrench() {
       FROM sessions
       GROUP BY time
       ORDER BY time`,
+    `SELECT
+      count(DISTINCT userId) AS online_users
+    FROM 
+      events
+    WHERE 
+      event = '$pageview'
+      AND timestamp > now() - INTERVAL 60 SECOND`,
   ])
 
   return {
@@ -96,6 +103,10 @@ export async function getEventsFromTrench() {
     topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
     pageviewsData: transformTimeValueDataToArray(queryResults.results[3]),
     sessionsData: transformTimeValueDataToArray(queryResults.results[4]),
+    onlineUsersData: Number(
+      (Object.values(queryResults.results[5])[0] as { online_users: number })
+        .online_users,
+    ),
   }
 }
 

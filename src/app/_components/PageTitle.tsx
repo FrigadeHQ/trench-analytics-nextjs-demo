@@ -1,6 +1,7 @@
 "use client"
 
-export default function PageTitle() {
+export default function PageTitle({ onlineUsers }: { onlineUsers: number }) {
+  const hasUsersOnline = onlineUsers > 0
   return (
     <div className="my-12 space-y-4 lg:my-20">
       <h1
@@ -39,23 +40,23 @@ export default function PageTitle() {
         </a>
         .
       </p>
-      {/* <span className="flex items-center space-x-2">
+      <span className="flex items-center space-x-2">
         <span
           className={`shrink-0 animate-pulse rounded-full ${
-            89 > 0 ? "bg-emerald-500/30" : "bg-gray-500/30"
+            hasUsersOnline ? "bg-emerald-500/30" : "bg-gray-500/30"
           } p-1`}
           aria-hidden={true}
         >
           <span
             className={`block size-2 rounded-full ${
-              89 > 0 ? "bg-emerald-500" : "bg-gray-500"
+              hasUsersOnline ? "bg-emerald-500" : "bg-gray-500"
             }`}
           />
         </span>
         <span className="max-w-md text-sm leading-relaxed text-gray-800 dark:text-gray-400">
-          {89 > 0 ? `${89} online` : "No one online"}
+          {hasUsersOnline ? `${onlineUsers} online` : "No one online"}
         </span>
-      </span> */}
+      </span>
     </div>
   )
 }
