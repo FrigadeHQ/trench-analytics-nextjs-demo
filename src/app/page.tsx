@@ -28,7 +28,7 @@ export default async function Page() {
           sessionsData={sessionsData}
         />
 
-        <section className="my-8">
+        <section className="my-8 px-[1px]">
           <Card className="flex flex-row flex-wrap divide-y divide-gray-200 rounded-lg border border-gray-200 p-0 dark:divide-gray-900 dark:border-gray-900 sm:[&>*:not(:first-child)]:border-l sm:[&>*:nth-child(even)]:border-l-0 [&>*]:border-l-gray-200 dark:[&>*]:border-l-gray-900">
             <VisitorsChart data={visitorsData} />
             <TopPagesTable data={topPagesData} />

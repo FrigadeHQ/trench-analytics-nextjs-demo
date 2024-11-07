@@ -67,13 +67,6 @@ export default function PageHeader({
       </div>
       <div className="hidden items-end gap-3 lg:flex lg:flex-wrap lg:self-start">
         <FilterDate />
-        {/* <Button
-          variant="light"
-          className="h-fit dark:border-gray-800"
-          onClick={handleResetFilters}
-        >
-          Reset
-        </Button> */}
       </div>
     </section>
   )

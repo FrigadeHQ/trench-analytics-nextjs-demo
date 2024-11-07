@@ -92,4 +92,14 @@ export const formatters: { [key: string]: any } = {
     }).format(number)
     return `${formattedNumber}M`
   },
+
+  compact: (number: number) => {
+    if (number < 10000) {
+      return new Intl.NumberFormat("en-US").format(number)
+    }
+    return new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(number)
+  },
 }

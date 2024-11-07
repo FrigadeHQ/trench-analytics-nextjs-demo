@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   keywords: [],
   authors: [
     {
-      name: "yourname",
-      url: "",
+      name: "Frigade",
+      url: "https://frigade.com",
     },
   ],
-  creator: "yourname",
+  creator: "Frigade",
   openGraph: {
     type: "website",
     locale: "en_US",

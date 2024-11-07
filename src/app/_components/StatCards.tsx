@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/Card"
 import { useDateFilter } from "@/lib/useDateFilter"
+import { formatters } from "@/lib/utils"
 
 export default function StatCards({
   data: { visitorsData, pageviewsData, sessionsData },
@@ -48,7 +49,7 @@ export default function StatCards({
               </dt>
             </div>
             <dd className="text-tremor-content-strong dark:text-dark-tremor-content-strong mt-1 text-xl font-semibold">
-              {Number(item.stat).toLocaleString()}
+              {formatters.compact(Number(item.stat))}
             </dd>
           </Card>
         ))}

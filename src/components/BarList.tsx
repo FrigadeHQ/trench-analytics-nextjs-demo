@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { cx, focusRing } from "@/lib/utils"
+import { cx, focusRing, formatters } from "@/lib/utils"
 
 type Bar<T> = T & {
   key?: string
@@ -172,7 +172,7 @@ function BarListInner<T>(
                 "text-gray-900 dark:text-gray-50",
               )}
             >
-              {valueFormatter(item.value)}
+              {formatters.compact(item.value)}
             </p>
           </div>
         ))}
