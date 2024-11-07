@@ -5,17 +5,34 @@ import { useEffect, useState } from "react"
 
 export function OnlineUsers() {
   const [onlineUsers, setOnlineUsers] = useState(0)
+  const [targetOnlineUsers, setTargetOnlineUsers] = useState(0)
 
   useEffect(() => {
     async function fetchAndSetOnlineUsers() {
-      const onlineUsers = await getNumberOfOnlineUsersFromTrench()
-      setOnlineUsers(onlineUsers)
+      const newOnlineUsers = await getNumberOfOnlineUsersFromTrench()
+      setTargetOnlineUsers(newOnlineUsers)
     }
 
     fetchAndSetOnlineUsers()
     const interval = setInterval(fetchAndSetOnlineUsers, 5000)
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    if (onlineUsers !== targetOnlineUsers) {
+      const step = onlineUsers < targetOnlineUsers ? 1 : -1
+      const interval = setInterval(() => {
+        setOnlineUsers((prev) => {
+          const nextValue = prev + step
+          if (nextValue === targetOnlineUsers) {
+            clearInterval(interval)
+          }
+          return nextValue
+        })
+      }, 100)
+      return () => clearInterval(interval)
+    }
+  }, [targetOnlineUsers, onlineUsers])
 
   const hasUsersOnline = onlineUsers > 0
   return (
