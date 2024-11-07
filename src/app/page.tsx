@@ -1,5 +1,8 @@
 import { Card } from "@/components/Card"
-import { getEventsFromTrench } from "@/data/trench"
+import {
+  getAnalyticsDataFromTrench,
+  getNumberOfOnlineUsersFromTrench,
+} from "@/data/trench"
 import Nav from "./_components/Navigation"
 import PageHeader from "./_components/PageHeader"
 import PageTitle from "./_components/PageTitle"
@@ -15,8 +18,9 @@ export default async function Page() {
     topPagesData,
     pageviewsData,
     sessionsData,
-    onlineUsersData,
-  } = await getEventsFromTrench()
+  } = await getAnalyticsDataFromTrench()
+
+  const onlineUsersData = await getNumberOfOnlineUsersFromTrench()
 
   return (
     <div className="mx-auto max-w-screen-xl">

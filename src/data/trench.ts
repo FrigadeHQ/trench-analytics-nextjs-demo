@@ -1,6 +1,6 @@
 import Trench from "trench-js"
 
-export async function getEventsFromTrench() {
+function getTrenchClient() {
   if (!process.env.NEXT_PUBLIC_TRENCH_PUBLIC_API_KEY) {
     throw new Error("NEXT_PUBLIC_TRENCH_PUBLIC_API_KEY is not set")
   }
@@ -11,12 +11,16 @@ export async function getEventsFromTrench() {
     throw new Error("NEXT_PUBLIC_TRENCH_SERVER_URL is not set")
   }
 
-  const trenchClient = new Trench({
+  return new Trench({
     publicApiKey: process.env.NEXT_PUBLIC_TRENCH_PUBLIC_API_KEY,
     privateApiKey: process.env.TRENCH_PRIVATE_API_KEY,
     serverUrl: process.env.NEXT_PUBLIC_TRENCH_SERVER_URL,
     enabled: true,
   })
+}
+
+export async function getAnalyticsDataFromTrench() {
+  const trenchClient = getTrenchClient()
 
   const queryResults = await trenchClient.executeQueries([
     `SELECT
@@ -88,6 +92,21 @@ export async function getEventsFromTrench() {
       FROM sessions
       GROUP BY time
       ORDER BY time`,
+  ])
+
+  return {
+    visitorsData: transformTimeValueDataToArray(queryResults.results[0]),
+    referrersData: transformReferrerDataToArray(queryResults.results[1]),
+    topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
+    pageviewsData: transformTimeValueDataToArray(queryResults.results[3]),
+    sessionsData: transformTimeValueDataToArray(queryResults.results[4]),
+  }
+}
+
+export async function getNumberOfOnlineUsersFromTrench() {
+  const trenchClient = getTrenchClient()
+
+  const queryResults = await trenchClient.executeQueries([
     `SELECT
       count(DISTINCT userId) AS online_users
     FROM 
@@ -97,17 +116,10 @@ export async function getEventsFromTrench() {
       AND timestamp > now() - INTERVAL 60 SECOND`,
   ])
 
-  return {
-    visitorsData: transformTimeValueDataToArray(queryResults.results[0]),
-    referrersData: transformReferrerDataToArray(queryResults.results[1]),
-    topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
-    pageviewsData: transformTimeValueDataToArray(queryResults.results[3]),
-    sessionsData: transformTimeValueDataToArray(queryResults.results[4]),
-    onlineUsersData: Number(
-      (Object.values(queryResults.results[5])[0] as { online_users: number })
-        .online_users,
-    ),
-  }
+  return Number(
+    (Object.values(queryResults.results[0])[0] as { online_users: number })
+      .online_users,
+  )
 }
 
 export function transformTimeValueDataToArray(
