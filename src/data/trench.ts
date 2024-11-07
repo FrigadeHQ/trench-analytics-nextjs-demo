@@ -1,3 +1,5 @@
+"use server"
+
 import Trench from "trench-js"
 
 function getTrenchClient() {
@@ -122,7 +124,7 @@ export async function getNumberOfOnlineUsersFromTrench() {
   )
 }
 
-export function transformTimeValueDataToArray(
+function transformTimeValueDataToArray(
   data: Record<string, any>,
 ): { time: string; value: number }[] {
   return Object.values(data).map((item) => ({
@@ -131,7 +133,7 @@ export function transformTimeValueDataToArray(
   }))
 }
 
-export function transformReferrerDataToArray(
+function transformReferrerDataToArray(
   data: Record<string, any>,
 ): { time: string; referrer: string; referrer_count: number }[] {
   return Object.values(data).map((item) => ({
@@ -141,7 +143,7 @@ export function transformReferrerDataToArray(
   }))
 }
 
-export function transformTopPagesDataToArray(
+function transformTopPagesDataToArray(
   data: Record<string, any>,
 ): { time: string; page: string; page_count: number }[] {
   return Object.values(data).map((item) => ({

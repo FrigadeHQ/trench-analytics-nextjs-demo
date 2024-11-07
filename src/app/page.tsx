@@ -1,8 +1,5 @@
 import { Card } from "@/components/Card"
-import {
-  getAnalyticsDataFromTrench,
-  getNumberOfOnlineUsersFromTrench,
-} from "@/data/trench"
+import { getAnalyticsDataFromTrench } from "@/data/trench"
 import Nav from "./_components/Navigation"
 import PageHeader from "./_components/PageHeader"
 import PageTitle from "./_components/PageTitle"
@@ -20,13 +17,11 @@ export default async function Page() {
     sessionsData,
   } = await getAnalyticsDataFromTrench()
 
-  const onlineUsersData = await getNumberOfOnlineUsersFromTrench()
-
   return (
     <div className="mx-auto max-w-screen-xl">
       <Nav />
       <main className="ease mx-auto max-w-7xl transform-gpu px-2 transition-all duration-100 will-change-transform sm:px-6 lg:p-3 lg:px-8 lg:dark:bg-gray-950">
-        <PageTitle onlineUsers={onlineUsersData} />
+        <PageTitle />
         <PageHeader
           visitorsData={visitorsData}
           pageviewsData={pageviewsData}
