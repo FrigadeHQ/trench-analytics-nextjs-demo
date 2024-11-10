@@ -115,7 +115,7 @@ export async function getNumberOfOnlineUsersFromTrench() {
       events
     WHERE 
       event = '$pageview'
-      AND timestamp > now() - INTERVAL 60 SECOND`,
+      AND timestamp > now() - INTERVAL 180 SECOND`,
   ])
 
   return Number(
