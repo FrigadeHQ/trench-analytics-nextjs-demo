@@ -1,41 +1,31 @@
 const LoadingPage = () => {
   return (
-    <div className="mx-auto max-w-screen-xl p-6 pt-16 text-white">
-      <div className="mb-6 flex items-center justify-between">
-        <div className="h-4 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="flex space-x-2">
-          {[
-            "Date Range",
-            "Locations",
-            "Expense Status",
-            "Transaction Amount",
-          ].map((_, index) => (
+    <div className="mx-auto">
+      <div className="lg-px-8 mx-auto h-16 max-w-7xl animate-pulse rounded bg-gray-200 px-2 dark:bg-gray-800" />
+      <main className="ease mx-auto max-w-7xl transform-gpu px-2 transition-all duration-100 will-change-transform sm:px-6 lg:p-3 lg:px-8 lg:dark:bg-gray-950">
+        <div className="my-12 space-y-4 lg:my-20">
+          <div className="h-10 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-800" />
+          <div className="h-20 w-full max-w-md animate-pulse rounded bg-gray-200 dark:bg-gray-800" />
+          <div className="h-6 w-32 animate-pulse rounded bg-gray-200 dark:bg-gray-800" />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[1, 2, 3].map((i) => (
             <div
-              key={index}
-              className="h-8 w-20 animate-pulse rounded bg-gray-200 px-3 py-2 dark:bg-gray-800"
-            ></div>
+              key={i}
+              className="h-24 animate-pulse rounded-lg bg-gray-200 p-6 dark:bg-gray-800"
+            />
           ))}
         </div>
-      </div>
 
-      <div className="mb-8">
-        <div className="mb-2 h-6 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="h-8 w-40 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-      </div>
-
-      <div className="mb-8 h-64 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-
-      <div className="mb-8">
-        <div className="mb-2 h-6 w-36 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="mb-4 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="h-32 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-      </div>
-
-      <div>
-        <div className="mb-2 h-6 w-36 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="mb-4 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="h-32 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
-      </div>
+        <section className="my-8 px-[1px]">
+          <div className="flex flex-row flex-wrap divide-y divide-gray-200 rounded-lg border border-gray-200 p-0 dark:divide-gray-900 dark:border-gray-900">
+            <div className="h-96 w-full animate-pulse bg-gray-200 dark:bg-gray-800" />
+            <div className="h-96 w-full animate-pulse bg-gray-200 dark:bg-gray-800" />
+            <div className="h-96 w-full animate-pulse bg-gray-200 dark:bg-gray-800" />
+          </div>
+        </section>
+      </main>
     </div>
   )
 }
