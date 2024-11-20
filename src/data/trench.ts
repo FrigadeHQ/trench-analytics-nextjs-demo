@@ -97,11 +97,11 @@ export async function getAnalyticsDataFromTrench() {
   ])
 
   return {
-    visitorsData: transformTimeValueDataToArray(queryResults.results[0]),
+    visitorsData: transformToGraphArray(queryResults.results[0]),
     referrersData: transformReferrerDataToArray(queryResults.results[1]),
     topPagesData: transformTopPagesDataToArray(queryResults.results[2]),
-    pageviewsData: transformTimeValueDataToArray(queryResults.results[3]),
-    sessionsData: transformTimeValueDataToArray(queryResults.results[4]),
+    pageviewsData: transformToGraphArray(queryResults.results[3]),
+    sessionsData: transformToGraphArray(queryResults.results[4]),
   }
 }
 
@@ -124,13 +124,32 @@ export async function getNumberOfOnlineUsersFromTrench() {
   )
 }
 
-function transformTimeValueDataToArray(
+function transformToGraphArray(
   data: Record<string, any>,
 ): { time: string; value: number }[] {
-  return Object.values(data).map((item) => ({
+  const values = Object.values(data).map((item) => ({
     time: item.time,
     value: item.value,
   }))
+
+  const paddedValues: { time: string; value: number }[] = []
+  const startTime = new Date(values[0].time + "Z")
+  const endTime = new Date(values[values.length - 1].time + "Z")
+
+  for (
+    let time = startTime;
+    time <= endTime;
+    time.setHours(time.getHours() + 1)
+  ) {
+    const timeString = time.toISOString().slice(0, 19).replace("T", " ")
+    const existingValue = values.find((item) => item.time === timeString)
+    paddedValues.push({
+      time: timeString,
+      value: existingValue ? existingValue.value : "0",
+    })
+  }
+
+  return paddedValues
 }
 
 function transformReferrerDataToArray(

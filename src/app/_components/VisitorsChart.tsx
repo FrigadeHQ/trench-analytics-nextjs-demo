@@ -7,7 +7,7 @@ import {
 } from "@/lib/useDateFilter"
 import { useMemo } from "react"
 
-const VALUE_KEY = "Unique Pageviews"
+const VALUE_KEY = "Pageviews"
 export const VisitorsChart = ({
   data,
 }: {
@@ -38,9 +38,13 @@ export const VisitorsChart = ({
         data={chartData}
         index="time"
         categories={[VALUE_KEY]}
-        valueFormatter={(number: number) =>
-          Intl.NumberFormat("us").format(number).toString()
-        }
+        valueFormatter={(number: number) => {
+          // if number is a decimal, skip it
+          if (number % 1 !== 0) {
+            return ""
+          }
+          return Intl.NumberFormat("us").format(number).toString()
+        }}
         fill="solid"
         maxValue={Math.max(...chartData.map((item) => item[VALUE_KEY]))}
       />
