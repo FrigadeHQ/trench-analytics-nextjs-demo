@@ -125,9 +125,9 @@ export async function getNumberOfOnlineUsersFromTrench() {
 }
 
 function transformToGraphArray(
-  data: Record<string, any>,
+  data: Array<Record<string, any>>,
 ): { time: string; value: number }[] {
-  const values = Object.values(data).map((item) => ({
+  const values = data.map((item) => ({
     time: item.time,
     value: item.value,
   }))
@@ -153,9 +153,9 @@ function transformToGraphArray(
 }
 
 function transformReferrerDataToArray(
-  data: Record<string, any>,
+  data: Array<Record<string, any>>,
 ): { time: string; referrer: string; referrer_count: number }[] {
-  return Object.values(data).map((item) => ({
+  return data.map((item) => ({
     time: item.time,
     referrer: item.referrer,
     referrer_count: item.referrer_count,
@@ -163,9 +163,9 @@ function transformReferrerDataToArray(
 }
 
 function transformTopPagesDataToArray(
-  data: Record<string, any>,
+  data: Array<Record<string, any>>,
 ): { time: string; page: string; page_count: number }[] {
-  return Object.values(data).map((item) => ({
+  return data.map((item) => ({
     time: item.time,
     page: item.page,
     page_count: item.page_count,
