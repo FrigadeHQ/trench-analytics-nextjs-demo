@@ -45,7 +45,7 @@ export async function getAnalyticsDataFromTrench() {
       WHERE 
         event = '$pageview' 
         AND referrer != '' 
-        AND referrer NOT LIKE '%localhost%' AND referrer NOT LIKE '%trench.dev%'
+        AND referrer NOT LIKE '%localhost%' AND referrer NOT LIKE '%trench.dev%' AND referrer NOT LIKE '%syndicatedsearch.goog%'
       GROUP BY 
         time, referrer
       ORDER BY 
