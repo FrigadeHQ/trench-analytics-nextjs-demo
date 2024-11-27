@@ -1,7 +1,11 @@
 # Trench.dev Analytics Dashboard Demo
 
 This React + Next.js demo showcases how to build a user-facing analytics dashboard using
-[Trench](https://trench.dev). You can see a live demo of it on [https://demo.trench.dev](https://demo.trench.dev).
+[Trench](https://github.com/FrigadeHQ/trench). 
+
+## Demo
+
+You can see a live demo at: [https://demo.trench.dev](https://demo.trench.dev)
 
 ## Getting started
 
