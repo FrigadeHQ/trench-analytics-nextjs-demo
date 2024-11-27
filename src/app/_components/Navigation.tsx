@@ -8,7 +8,7 @@ const navigation = [
   { name: "Website", href: "https://trench.dev", current: false },
   {
     name: "Github",
-    href: "https://github.com/frigadehq/trench",
+    href: "https://github.com/FrigadeHQ/trench-analytics-nextjs-demo",
     current: false,
   },
 ]
