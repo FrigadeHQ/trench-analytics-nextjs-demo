@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/Card"
 import { useDateFilter } from "@/lib/useDateFilter"
-import { formatters } from "@/lib/utils"
+import NumberFlow from "@number-flow/react"
 
 export default function StatCards({
   data: { visitorsData, pageviewsData, sessionsData },
@@ -49,7 +49,11 @@ export default function StatCards({
               </dt>
             </div>
             <dd className="text-tremor-content-strong dark:text-dark-tremor-content-strong mt-1 text-xl font-semibold">
-              {formatters.compact(Number(item.stat))}
+              <NumberFlow
+                continuous={true}
+                value={Number(item.stat)}
+                format={{ notation: "compact" }}
+              />
             </dd>
           </Card>
         ))}

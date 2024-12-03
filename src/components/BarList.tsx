@@ -1,8 +1,8 @@
 // Tremor Raw BarList [v0.1.0]
 
+import { cx, focusRing } from "@/lib/utils"
+import NumberFlow from "@number-flow/react"
 import React from "react"
-
-import { cx, focusRing, formatters } from "@/lib/utils"
 
 type Bar<T> = T & {
   key?: string
@@ -172,7 +172,11 @@ function BarListInner<T>(
                 "text-gray-900 dark:text-gray-50",
               )}
             >
-              {formatters.compact(item.value)}
+              <NumberFlow
+                continuous={true}
+                value={Number(item.value)}
+                format={{ notation: "compact" }}
+              />
             </p>
           </div>
         ))}
