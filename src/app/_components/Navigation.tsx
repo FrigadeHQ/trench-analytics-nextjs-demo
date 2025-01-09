@@ -11,6 +11,11 @@ const navigation = [
     href: "https://github.com/FrigadeHQ/trench-analytics-nextjs-demo",
     current: false,
   },
+  {
+    name: "Slack",
+    href: "https://join.slack.com/t/trench-community/shared_invite/zt-2xuul9pao-SmakACcRtY9IYzGiqAztRQ",
+    current: false,
+  },
 ]
 
 export default function Nav() {
